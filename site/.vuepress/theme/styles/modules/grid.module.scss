@@ -1,0 +1,59 @@
+$layout-grid-mobile-columns: 5;
+$layout-grid-mobile-gutter: 16px;
+$layout-grid-mobile-min-width: 320px;
+$layout-grid-mobile-max-width: 640px;
+
+$layout-grid-desktop-columns: $layout-grid-mobile-columns * 2;
+$layout-grid-desktop-gutter: $layout-grid-mobile-gutter;
+$layout-grid-desktop-min-width: $layout-grid-mobile-max-width;
+$layout-grid-desktop-max-width: 1024px;
+
+@mixin mobile () {
+  @media screen and (max-width: $layout-grid-mobile-max-width) {
+    @content
+  }
+};
+
+@mixin desktop () {
+  @media screen and (min-width:$layout-grid-desktop-min-width) {
+    @content
+  }
+};
+
+@function column ($columns, $index, $gutter) {
+  @return calc(100% / #{$columns} - #{$gutter - ($gutter / $columns)})
+};
+
+@mixin grid {
+  display: grid;
+  width: 100%;
+  max-width: $layout-grid-desktop-max-width;
+  margin: 0 auto;
+
+  @include mobile {
+    grid-column-gap: $layout-grid-mobile-gutter;
+    grid-template-columns: repeat($layout-grid-mobile-columns, column($layout-grid-mobile-columns, 1, $layout-grid-mobile-gutter));
+  };
+
+  @include desktop() {
+    grid-column-gap: $layout-grid-desktop-gutter;
+    grid-template-columns: repeat($layout-grid-desktop-columns, column($layout-grid-desktop-columns, 1, $layout-grid-desktop-gutter));
+  };
+};
+
+@mixin column-mobile($span) {
+  @include mobile {
+    grid-column: span #{$span};
+  };
+}
+
+@mixin column-desktop($span) {
+  @include desktop() {
+    grid-column: span #{$span};
+  };
+}
+
+@mixin column ($mobile: 1, $desktop: 1) {
+  @include column-mobile($mobile);
+  @include column-desktop($desktop);
+}

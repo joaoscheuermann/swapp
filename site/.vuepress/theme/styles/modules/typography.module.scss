@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+@import './grid.module';
+
+$typography: (
+  xxxxlarge: 100px,
+  xxxlarge: 65px,
+  xxlarge: 45px,
+  xlarge: 40px,
+  large: 30px,
+  default: 25px,
+  small: 22px,
+  xsmall: 20px,
+  xxsmall: 17px,
+  xxxsmall: 15px,
+  xxxxsmall: 12px
+);
+
+@function font-size($key) {
+  @return map-get($map: $typography, $key: $key);
+}
+
+// Font base
+@mixin typography-base ($font, $size, $weight) {
+  font-family: '#{$font}', Arial, Helvetica, sans-serif;
+  font-size: $size;
+  font-weight: $weight;
+  // line-height: unset;
+  -webkit-font-smoothing: auto;
+  text-rendering: optimizeLegibility;
+};
+
+@mixin typography-poppins-thin ($size) {
+  @include typography-base('Poppins', $size, 300)
+}
+
+@mixin typography-poppins-regular ($size) {
+  @include typography-base('Poppins', $size, 400)
+}
+
+@mixin typography-poppins-medium ($size) {
+  @include typography-base('Poppins', $size, 500)
+}
+
+@mixin typography-poppins-semibold ($size) {
+  @include typography-base('Poppins', $size, 600)
+}
+
+// Headings
+@mixin typography-heading1 {
+  @include typography-poppins-semibold(font-size('large'));
+
+  @include desktop {
+    @include typography-poppins-semibold(font-size('xxlarge'));
+  };
+}
+
+@mixin typography-heading2 {
+  @include typography-poppins-semibold(font-size('small'));
+
+  @include desktop {
+    @include typography-poppins-semibold(font-size('large'));
+  };
+}
+
+@mixin typography-heading3 {
+  @include typography-poppins-semibold(font-size('xxsmall'));
+
+  @include desktop {
+    @include typography-poppins-semibold(font-size('default'));
+  };
+}
+
+// Body
+@mixin typography-body1 {
+  @include typography-poppins-thin(font-size('xxxsmall'));
+
+  @include desktop {
+    @include typography-poppins-thin(font-size('xxsmall'));
+  }
+}
+
+// Label
+@mixin typography-label {
+  @include typography-poppins-semibold(font-size('xxxxsmall'));
+  letter-spacing: 0.2px;
+
+  @include desktop {
+    font-size: font-size('xxxsmall');
+  };
+}
+
+// Special
+@mixin typography-header {
+  @include typography-poppins-semibold(font-size('xlarge'));
+
+  @include desktop {
+    @include typography-poppins-semibold(font-size('xxxxlarge'));
+  };
+}

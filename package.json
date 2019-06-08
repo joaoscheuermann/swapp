@@ -1,0 +1,16 @@
+{
+  "devDependencies": {
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
+    "vuepress": "^1.0.0-alpha.44"
+  },
+  "scripts": {
+    "dev": "vuepress dev site",
+    "build": "vuepress build site"
+  },
+  "dependencies": {
+    "compression": "^1.7.3",
+    "express": "^4.16.4",
+    "vuex": "^3.1.0"
+  }
+}
