@@ -32,16 +32,14 @@ export default new Vuex.Store({
       Vue.set(state, 'contas', obj)
     },
 
-    SET_TRANSACOES (state, { result }) {
+    SET_TRANSACOES (state, { conta_id, data}) {
       let obj = {}
-
-      for (let key in result) {
-        let item = result[key]
-        obj[item.conta_id] = item
+      for (let key in data.result) {
+        let item = data.result[key]
+        obj[item.transacao_id] = item
       }
-
-      Vue.set(state, 'contas', obj)
-      // state.transacoes = Object.assign(state.transacoes, payload)
+      
+      Vue.set(state.transacoes, conta_id, obj)
     }
   },
   actions: {
@@ -59,6 +57,7 @@ export default new Vuex.Store({
         })
     },
 
+    // GET CONTAS
     async GET_CONTAS ({ commit, dispatch, state }) {
       await fetch(base('/usuario/contas'), {
         method: 'post',
@@ -71,21 +70,7 @@ export default new Vuex.Store({
       })
     },
 
-    async GET_TRANSACOES ({ commit, dispatch, state }) {
-      await fetch(base('/usuario/conta/trasacao'), {
-        method: 'post',
-        headers,
-        body: new URLSearchParams({ 'cpf_cnpj': state.cpf })
-      }).then(async response => {
-        let data = await response.json()
-        console.log('contas', data)
-        commit('SET_CONTAS', data)
-      })
-    },
-
     async CADASTRAR_CONTA ({ commit, dispatch, state }, payload) {
-      console.log({ 'cpf_cnpj': state.cpf, ...payload })
-
       await fetch(base('/usuario/conta/cadastro'), {
         method: 'post',
         headers,
@@ -94,6 +79,29 @@ export default new Vuex.Store({
         let data = await response.json()
         console.log('CADASTRO', data)
       })
-    }
+    },
+
+    // GET TRANSACOES
+    async GET_TRANSACOES ({ commit, dispatch, state }, { conta_id }) {
+      await fetch(base('/usuario/conta/transacoes'), {
+        method: 'post',
+        headers,
+        body: new URLSearchParams({ conta_id })
+      }).then(async response => {
+        let data = await response.json()
+        commit('SET_TRANSACOES', { conta_id, data })
+      })
+    },
+
+    async CADASTRAR_TRANSACAO ({ commit, dispatch, state }, payload) {
+      await fetch(base('/usuario/conta/transacao/cadastro'), {
+        method: 'post',
+        headers,
+        body: new URLSearchParams(payload)
+      }).then(async response => {
+        let data = await response.json()
+        dispatch('GET_TRANSACOES', { conta_id: payload.conta_id })
+      })
+    },
   }
 })

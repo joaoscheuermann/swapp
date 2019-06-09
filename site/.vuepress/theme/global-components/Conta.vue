@@ -27,12 +27,16 @@
     </div>
 
     <div class="transacoes">
-      <!-- <Transacao /> -->
+      <Transacao v-for="transacao in transacoes[conta.conta_id]" v-if="transacao.transacao_id"/>
     </div>
+
+    <!-- {{ JSON.stringify(transacoes[conta.conta_id]) }} -->
   </div>
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+
 export default {
   props: {
     conta: {
@@ -41,13 +45,26 @@ export default {
   },
 
   computed: {
-
+    ...mapState([
+      'transacoes'
+    ])
   },
 
   methods: {
+    ...mapActions([
+      'GET_TRANSACOES'
+    ]),
     handleNovaTransacaoButtonClick () {
+      window.currentContaId = this.conta.conta_id
       this.$router.push('/transacao.html')
     }
+  },
+
+  created () {
+    const { conta_id } = this.conta
+    this.GET_TRANSACOES({
+      conta_id
+    })
   }
 }
 </script>

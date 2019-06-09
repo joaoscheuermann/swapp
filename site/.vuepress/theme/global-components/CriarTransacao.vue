@@ -28,26 +28,31 @@
         <option value="200"> R$: 200 </option>
       </Input>
 
-      <Button id="button" @click="handleDoneButtonClick"> REALIZAR </Button>
+      <Button id="button" @click.native="handleDoneButtonClick"> REALIZAR </Button>
     </div>
   </div>
 
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+
 export default {
-  data () {
-    return  {
-
-    }
-  },
-
   methods: {
+    ...mapActions([
+      'CADASTRAR_TRANSACAO'
+    ]),
+
     handleVoltarClick() {
-      this.$router.push('/contas.html')
+      // this.$router.push('/contas.html')
     },
     handleDoneButtonClick () {
-      console.log('done')
+      // 'conta_id', 'favorecido_id', 'valor_dolar', 'status_id'
+
+      this.CADASTRAR_TRANSACAO({ conta_id: window.currentContaId, favorecido_id: 1, valor_dolar: 200, status_id: 1 })
+        .then(e => {
+          this.$router.push('/contas.html')
+        })
     }
   }
 }
