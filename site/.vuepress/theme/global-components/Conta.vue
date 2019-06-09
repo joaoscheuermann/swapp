@@ -23,26 +23,22 @@
     </div>
 
     <div class="section">
-      <button class="button">
-        NOVA TRANSAÇÂO
-      </button>
+      <button class="cta" @click="handleNovaTransacaoButtonClick"> NOVA TRANSAÇÂO </button>
     </div>
 
     <div class="transacoes">
-      <div class="transacao">
-        <div class="dado">
-          <div class="label">Transação</div>
-          <div class="valor">R$: 100,00</div>
-        </div>
-        <div class="status"> PENDENTE </div>
-      </div>
+      <!-- <Transacao /> -->
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  
+  methods: {
+    handleNovaTransacaoButtonClick () {
+      this.$router.push('/transacao.html')
+    }
+  }
 }
 </script>
 
@@ -117,7 +113,7 @@ export default {
     display: flex;
     flex-direction: row-reverse;
 
-    >.button {
+    >.cta {
       padding: 10px 20px;
       margin-bottom: 15px;
       font-family: Roboto;
@@ -134,27 +130,6 @@ export default {
   >.transacoes {
     padding: 0;
     background: #FFF7FF;
-
-    >.transacao {
-      display: flex;
-      padding: 10px 20px;
-      color: black;
-      
-      >.dado {
-        flex-shrink: 0;
-      }
-
-      >.status {
-        width: 100%;
-        align-self: center;
-        text-align: right;
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 18px;
-        line-height: 21px;
-      }
-    }
   }
 
 }

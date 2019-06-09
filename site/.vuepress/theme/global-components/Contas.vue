@@ -1,12 +1,15 @@
 <template>
   <div class="contas">
-    <Header>
-      Swapp
-    </Header>
+    <Header/>
 
     <Conta />
 
-    <Button class="adicionarConta" type="rounded"> + </Button>
+    <Button 
+      class="adicionarConta"
+      type="rounded"
+      @click.native="handleAdicionarContaButtonClick"> 
+      +
+    </Button>
 
   </div>
 
@@ -14,11 +17,21 @@
 
 <script>
 export default {
-  
+  methods: {
+    handleAdicionarContaButtonClick () {
+      this.$router.push('/adicionar_conta.html')
+    }
+  }
 }
 </script>
 
 <style lang="scss">
+  .contas {
+    >.header {
+      margin-bottom: 30px;
+    }
+  }
+
   .adicionarConta {
     position: absolute;
     bottom: 20px;

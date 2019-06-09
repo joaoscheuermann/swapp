@@ -1,8 +1,17 @@
 <template>
   <div class="input">
     <label class="label"> {{ label }} </label>
-    <input v-if="type !== 'select'" class="field" :placeholder="placeholder" :type="type" name="" id="">
-    <select v-else class="field">
+    <input 
+      v-if="type !== 'select'"
+      class="field"
+      :id="label"
+      :placeholder="placeholder" 
+      :type="type"
+      :value="value"
+      name="asdasd"
+      @input="log"
+    >
+    <select v-else class="field" :value="value" name="asdasd" @input="log">
       <slot />
     </select>
   </div>
@@ -22,6 +31,15 @@ export default {
     placeholder: {
       type: String,
       default: 'Input text'
+    },
+    value: {
+      default: null
+    }
+  },
+
+  methods: {
+    log (e) {
+      console.log(e.target.value)
     }
   }
 }

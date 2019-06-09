@@ -1,15 +1,16 @@
 <template>
   <div class="adicionar-conta">
-    <Header>
-      <div class="voltar">
+    <Header style="margin-bottom: 30px;">
+      <div class="voltar" 
+        @click="handleVoltarClick">
         <img src="/images/arrow_back.svg" alt="">
       </div>
-      <div class="titulo">ADICIONAR CONTA</div>
+      <div class="titulo">NOVA TRANSAÇÃO</div>
     </Header>
 
     <div class="inputs">
-      <Input type="select" label="BANCO"> 
-        <option value="teste"> NuBank </option>
+      <Input type="select" label="BANCO">
+        <option value="NuBank"> NuBank </option>
       </Input>
 
       <Input type="text" label="AGENCIA" id="agencia"/>
@@ -20,9 +21,14 @@
         <option value="001"> Conta corrente </option>
       </Input>
 
-      <Input type="password" label="SENHA"/>
+      <Input type="text" label="CPF"/>
 
-      <Button id="button"> ADICIONAR </Button>
+      <Input type="select" label="VALOR"> 
+        <option value="100"> R$: 100 </option>
+        <option value="200"> R$: 200 </option>
+      </Input>
+
+      <Button id="button" @click="handleDoneButtonClick"> REALIZAR </Button>
     </div>
   </div>
 
@@ -30,7 +36,20 @@
 
 <script>
 export default {
-  
+  data () {
+    return  {
+
+    }
+  },
+
+  methods: {
+    handleVoltarClick() {
+      this.$router.push('/contas.html')
+    },
+    handleDoneButtonClick () {
+      console.log('done')
+    }
+  }
 }
 </script>
 
@@ -39,19 +58,10 @@ export default {
 
   .adicionar-conta {
     >.header {
-      margin-bottom: 30px;
       >.titulo {
         @include column(5)
       }
     }
-  }
-
-  .adicionarConta {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    color: white;
-    background: #2C67FF;
   }
 
   .inputs {
@@ -69,6 +79,7 @@ export default {
     }
 
     #button {
+      margin-top: 30px;
       grid-column-start: 4;
       grid-column-end: 7;
     }

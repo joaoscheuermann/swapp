@@ -1,34 +1,11 @@
 <template>
-  <div class="adicionar-conta">
-    <Header>
-      <div>voltar</div>
-      <div>Transação</div>
-    </Header>
-
-    <div class="inputs">
-      <Input type="select" label="BANCO"> 
-        <option value="teste"> NuBank </option>
-      </Input>
-
-      <Input type="text" label="AGENCIA" id="agencia"/>
-      <Input type="text" label="CONTA" id="conta"/>
-
-      <Input type="select" label="TIPO DE CONTA"> 
-        <option value="003"> Poupança </option>
-        <option value="001"> Conta corrente </option>
-      </Input>
-
-      <Input type="text" label="CPF"/>
-
-      <Input type="select" label="VALOR"> 
-        <option value="003"> 100 </option>
-        <option value="001"> 200 </option>
-      </Input>
-
-      <Button id="button"> REALIZAR </Button>
+  <div class="transacao">
+    <div class="dado">
+      <div class="label">Transação</div>
+      <div class="valor">R$: 100,00</div>
     </div>
+    <div class="status"> PENDENTE </div>
   </div>
-
 </template>
 
 <script>
@@ -38,33 +15,24 @@ export default {
 </script>
 
 <style lang="scss">
-  @import "../styles/modules/grid.module";
-
-  .adicionarConta {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    color: white;
-    background: #2C67FF;
-  }
-
-  .inputs {
-    @include grid;
-    padding: 0 20px;
-
-    .input {
-      @include column(6);
+  .transacao {
+    display: flex;
+    padding: 10px 20px;
+    color: black;
+    
+    >.dado {
+      flex-shrink: 0;
     }
 
-    #agencia,
-    #conta,
-    #button {
-      @include column(3);
-    }
-
-    #button {
-      grid-column-start: 4;
-      grid-column-end: 7;
+    >.status {
+      width: 100%;
+      align-self: center;
+      text-align: right;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 21px;
     }
   }
 </style>
