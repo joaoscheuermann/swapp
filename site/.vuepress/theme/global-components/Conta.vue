@@ -34,6 +34,16 @@
 
 <script>
 export default {
+  props: {
+    conta: {
+      type: Object
+    }
+  },
+
+  computed: {
+
+  },
+
   methods: {
     handleNovaTransacaoButtonClick () {
       this.$router.push('/transacao.html')
@@ -46,7 +56,7 @@ export default {
 @import "../styles/modules/grid.module";
 
 .conta {
-  margin: 0 20px;
+  margin: 0 20px 15px 20px;
   padding: 20px 0 0 0;
 
   background: radial-gradient(385.70px at 0% 0%, #FC82FF 0%, #D247EE 75.01%, #C41CFF 100%);

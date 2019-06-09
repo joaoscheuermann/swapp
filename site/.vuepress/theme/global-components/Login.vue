@@ -1,18 +1,35 @@
 <template>
   <div class="login">
 
-    <Input type="password" label="CPF"/>
-    <Input type="password" label="SENHA"/>
+    <Input type="number" v-model="cpf" label="CPF"/>
+    <Input type="password" v-model="senha" label="SENHA"/>
 
     <Button id="button" @click.native="handleLoginButtonClick"> LOGIN </Button>
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
+  data () {
+    return {
+      cpf: '',
+      senha: ''
+    }
+  },
+
   methods: {
+    ...mapActions([
+      'LOGIN'
+    ]),
+
     handleLoginButtonClick () {
-      this.$router.push('/contas.html')
+      const {cpf, senha} = this
+      this.LOGIN({ cpf, senha })
+        .then(() => {
+          this.$router.push('/contas.html')
+        })
     }
   }
 }

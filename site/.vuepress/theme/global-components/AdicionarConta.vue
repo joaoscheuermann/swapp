@@ -1,6 +1,6 @@
 <template>
   <div class="adicionar-conta">
-    <Header>
+    <Header style="margin-bottom: 30px;">
       <div class="voltar">
         <img src="/images/arrow_back.svg" alt="">
       </div>
@@ -8,29 +8,56 @@
     </Header>
 
     <div class="inputs">
-      <Input type="select" label="BANCO"> 
-        <option value="teste"> NuBank </option>
+      <Input type="select" label="BANCO" v-model="banco"> 
+        <option value="001"> NuBank </option>
       </Input>
 
-      <Input type="text" label="AGENCIA" id="agencia"/>
-      <Input type="text" label="CONTA" id="conta"/>
+      <Input type="number" label="AGENCIA" id="agencia" v-model="agencia"/>
+      <Input type="number" label="CONTA" id="conta" v-model="conta"/>
 
-      <Input type="select" label="TIPO DE CONTA"> 
+      <Input type="select" label="TIPO DE CONTA" v-model="tipoDeConta">
         <option value="003"> Poupança </option>
         <option value="001"> Conta corrente </option>
       </Input>
 
-      <Input type="password" label="SENHA"/>
+      <Input type="password" label="SENHA" v-model="senha"/>
 
-      <Button id="button"> ADICIONAR </Button>
+      <Button id="button" @click.native="handleAdicionarButtonClick"> ADICIONAR </Button>
     </div>
   </div>
 
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
-  
+  data () {
+    return {
+      banco: '',
+      agencia: '',
+      conta: '',
+      tipoDeConta: '',
+      senha: ''
+    }
+  },
+
+  methods: {
+    ...mapActions([
+      'GET_CONTAS',
+      'CADASTRAR_CONTA'
+    ]),
+
+    handleAdicionarButtonClick () {
+      this.CADASTRAR_CONTA({ banco_id: parseInt(this.banco), agencia_digito: parseInt(this.agencia), conta_digito: parseInt(this.conta), poupanca_flag: 'False'})
+        .then(e => {
+          return this.GET_CONTAS()
+        })
+        .then(e => {
+          this.$router.push('/contas.html')
+        })
+    }
+  }
 }
 </script>
 

@@ -2,12 +2,12 @@
   <div class="contas">
     <Header/>
 
-    <Conta />
+    <Conta v-for="conta in contas" :conta="conta" :key="conta.conta_id"/>
 
     <Button 
       class="adicionarConta"
       type="rounded"
-      @click.native="handleAdicionarContaButtonClick"> 
+      @click.native="handleAdicionarContaButtonClick">
       +
     </Button>
 
@@ -16,11 +16,36 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+
 export default {
+  computed: {
+    ...mapState([
+      'contas'
+    ])
+  },
+  
   methods: {
+    ...mapActions([
+      'GET_CONTAS'
+    ]),
     handleAdicionarContaButtonClick () {
       this.$router.push('/adicionar_conta.html')
+    },
+
+    created () {
     }
+  },
+
+  created () {
+    // http://ec2-18-207-210-129.compute-1.amazonaws.com/usuario/contas
+    /* axios.get('http://ec2-18-207-210-129.compute-1.amazonaws.com/usuario/contas', {
+
+    })
+      .then(e => {
+
+      })
+    */
   }
 }
 </script>

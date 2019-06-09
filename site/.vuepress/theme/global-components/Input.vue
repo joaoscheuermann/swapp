@@ -9,9 +9,9 @@
       :type="type"
       :value="value"
       name="asdasd"
-      @input="log"
+      @input="handleInput"
     >
-    <select v-else class="field" :value="value" name="asdasd" @input="log">
+    <select v-else class="field" :value="value" name="asdasd" @input="handleInput">
       <slot />
     </select>
   </div>
@@ -38,8 +38,8 @@ export default {
   },
 
   methods: {
-    log (e) {
-      console.log(e.target.value)
+    handleInput (e) {
+      this.$emit('input', e.target.value)
     }
   }
 }
